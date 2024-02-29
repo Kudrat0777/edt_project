@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.bot_app',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -102,6 +104,13 @@ USE_I18N = True
 USE_TZ = True
 
 
+CELERY_BEAT_SCHEDULE = {
+    'notify_unresolved_complaints': {
+        'task': 'yourappname.tasks.notify_unresolved_complaints_task',
+        'schedule': timedelta(seconds=10),
+    },
+}
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
@@ -118,5 +127,5 @@ MEDIA_URL = "/media/"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-TELEGRAM_BOT_TOKEN = '7138567358:AAFIhT_E-ecFvmBTvUKpajePtaeGGpxvY2A'
-TELEGRAM_CHAT_ID = 'YOUR_TELEGRAM_CHAT_ID'
+TELEGRAM_BOT_TOKEN = "7138567358:AAFIhT_E-ecFvmBTvUKpajePtaeGGpxvY2A"
+TELEGRAM_CHAT_ID = '803030336'

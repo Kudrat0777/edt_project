@@ -1,5 +1,4 @@
 from django.urls import path
-from . import views
 from .views import complaint_list, submit_complaint, respond_to_complaint
 
 
