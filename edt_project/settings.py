@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from datetime import timedelta
+from celery import Celery
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,6 +40,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'apps.bot_app.middleware.TelegramBotMiddleware',
 ]
 
 ROOT_URLCONF = 'edt_project.urls'
@@ -106,7 +108,7 @@ USE_TZ = True
 
 CELERY_BEAT_SCHEDULE = {
     'notify_unresolved_complaints': {
-        'task': 'yourappname.tasks.notify_unresolved_complaints_task',
+        'task': 'bot_app.tasks.notify_unresolved_complaints_task',
         'schedule': timedelta(seconds=10),
     },
 }
@@ -129,3 +131,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 TELEGRAM_BOT_TOKEN = "7138567358:AAFIhT_E-ecFvmBTvUKpajePtaeGGpxvY2A"
 TELEGRAM_CHAT_ID = '803030336'
+
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'edt_project.settings')
+
